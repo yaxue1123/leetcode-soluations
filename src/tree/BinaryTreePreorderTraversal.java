@@ -11,39 +11,43 @@ public class BinaryTreePreorderTraversal {
 	 * }
 	 */
 
-    List<TreeNode> result = new ArrayList<TreeNode>();
+    List<Integer> result = new ArrayList<Integer>();
     
     public List<Integer> preorderTraversal(TreeNode root) {
         
-        List<Integer> ls = new ArrayList<Integer>();
-            
-        helpFunc(root);
-        
-        for (TreeNode node : result) {
-            ls.add(node.val);
-        }
-        
-        return ls;
-    }
-    
-    public TreeNode helpFunc(TreeNode root) {
-         // get root first.
+        // get root first.
         if (root != null) {
-            result.add(root);
+            result.add(root.val);
             
             // then left child recursively.
             if (root.left != null) {
-                helpFunc(root.left);
+                preorderTraversal(root.left);
             } 
         
             // then right child recursively.
             if (root.right != null) {
-                helpFunc(root.right);
+                preorderTraversal(root.right);
             } 
         
         }
         
-        return root;
+        return result;
     }
-	
+}
+
+// Better solution using dfs.
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        dfs(root, list);
+        return list;
+    }
+    
+    void dfs(TreeNode root, List<Integer> list) {
+        if (root == null) return;
+        
+        list.add(root.val);
+        dfs(root.left, list);
+        dfs(root.right, list);
+    }
 }
